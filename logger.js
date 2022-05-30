@@ -1,16 +1,17 @@
-// var url and function log are scoped to this module not visible from outside.
-var url = 'http://mylogger.io/log';
+const EventEmitter = require("events");
 
-function log(message) {
-    // Send http request
-    console.log(message);
+let url = 'http://mylogger.io/log';
+
+
+class Logger extends EventEmitter {
+    log(message) {
+        // Send http request
+        console.log(message);
+
+        // raise Event
+        this.emit('messageLogged', { id: 1, url: "http" });
+    }   
 }
 
-// exports function
-module.exports.log = log;
 
-// export object (when multiple methods inside module)
-module.exports.log = log;
-
-// exports variable
-// module.exports.endPoint = url;
+module.exports = Logger;
